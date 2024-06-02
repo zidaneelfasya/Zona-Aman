@@ -21,6 +21,14 @@ class LaporanController extends Controller
     {
         return view('layanan');
     }
+    public function show_laporan() {
+        $laporans = Laporan::all();
+        return view('admin/admin/showlaporan', compact('laporans'));
+    }
+    public function show_detail_laporan($id) {
+        $laporan = Laporan::findOrFail($id);
+        return view('admin/admin/showdetaillaporan', compact('laporan'));
+    }
 
     public function dashboard() {
         return view('riwayat', [

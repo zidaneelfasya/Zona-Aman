@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LayananController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,3 +48,12 @@ Route::post('/register', [RegisterController::class, 'store']);
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
+
+
+Route::get('/admin', function () {
+    return view('admin/admin/home');
+});
+Route::get('/admin/users', [UserController::class, 'index']);
+Route::get('/admin/users/delete/{id}', [UserController::class, 'deleteUser']);
+Route::get('/admin/laporan', [LaporanController::class, 'show_laporan']);
+Route::get('/admin/laporan/{id}', [LaporanController::class, 'show_detail_laporan']);
