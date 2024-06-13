@@ -50,10 +50,15 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
 
-Route::get('/admin', function () {
+Route::get('/admin/home', function () {
     return view('admin/admin/home');
+})->middleware(['auth','admin']);
+Route::get('/admin/login', function () {
+    return view('admin/admin/adminlogin');
 });
-Route::get('/admin/users', [UserController::class, 'index']);
-Route::get('/admin/users/delete/{id}', [UserController::class, 'deleteUser']);
-Route::get('/admin/laporan', [LaporanController::class, 'show_laporan']);
-Route::get('/admin/laporan/{id}', [LaporanController::class, 'show_detail_laporan']);
+Route::post('/admin/logout', [LoginController::class, 'logoutAdmin'])->middleware(['auth','admin']);
+Route::post('/admin/login/store', [LoginController::class, 'adminAuthenticate']);
+Route::get('/admin/users', [UserController::class, 'index'])->middleware(['auth','admin']);
+Route::get('/admin/users/delete/{id}', [UserController::class, 'deleteUser'])->middleware(['auth','admin']);
+Route::get('/admin/laporan', [LaporanController::class, 'show_laporan'])->middleware(['auth','admin']);
+Route::get('/admin/laporan/{id}', [LaporanController::class, 'show_detail_laporan'])->middleware(['auth','admin']);
