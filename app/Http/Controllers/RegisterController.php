@@ -39,10 +39,11 @@ class RegisterController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email:dns|unique:users',
-            'password' => 'required|min:4|max:255|'
+            'password' => 'required|min:4|max:255',
         ]);
 
-        $validatedData['password'] = Hash::make($validatedData['password']); // cara ke 2 bisa lihat di dokumentasi laravel bagian Hashing
+        $validatedData['password'] = Hash::make($validatedData['password']);
+        $validatedData['role'] = 'user'; // Set default role to 'user'
 
         User::create($validatedData);
 
