@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
+use App\Models\Laporan;
+use App\Models\Layanan;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,6 +28,12 @@ class DatabaseSeeder extends Seeder
             'name' => 'Ridwan Hanif',
             'email' => 'ridwan@gmail.com',
             'password' => bcrypt('12345')
+        ]);
+        User::create([
+            'name' => 'admin1',
+            'email' => 'admin1@gmail.com',
+            'password' => bcrypt('admin1'),
+            'role' => 'admin',
         ]);
 
         Layanan::create([

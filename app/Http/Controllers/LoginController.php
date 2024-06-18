@@ -29,11 +29,40 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required'
         ]);
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            if ($user->role === 'admin') {
+                $request->session()->regenerate();
+                return redirect()->intended('/admin/home'); // Redirect to admin dashboard or intended page
+            } elseif ($user->role === 'user') {
+                $request->session()->regenerate();
+                return redirect()->intended('/');
+            }
+            else {
+                Auth::logout();
+                return back()->with('loginError', 'Login failed! Only admins can log in.');
+            }
+        }
+        
 
-        if(Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+        return back()->with('loginError', 'Login failed!');
+    }
+    public function adminAuthenticate(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
 
-            return redirect()->intended('/');
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            if ($user->role === 'admin') {
+                $request->session()->regenerate();
+                return redirect()->intended('/admin/home'); // Redirect to admin dashboard or intended page
+            } else {
+                Auth::logout();
+                return back()->with('loginError', 'Login failed! Only admins can log in.');
+            }
         }
 
         return back()->with('loginError', 'Login failed!');
@@ -47,6 +76,15 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
     
         return redirect('/');
+    }
+    public function logoutAdmin(Request $request) {
+        Auth::logout();
+ 
+        $request->session()->invalidate();
+    
+        $request->session()->regenerateToken();
+    
+        return redirect('/admin/login');
     }
 
     public function create()
