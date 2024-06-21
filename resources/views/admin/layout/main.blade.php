@@ -17,7 +17,7 @@
     border-bottom: 2px solid #eaeaea; /* Warna dan ketebalan garis dapat disesuaikan sesuai kebutuhan */
     }
     .btn-custom {
-    background-color: #893B84;
+    background-color: #fcbcd4;
     color: #fff; /* Warna teks */
     border: none; /* Menghilangkan border */
     padding: 10px 20px; /* Atur padding sesuai kebutuhan */
@@ -42,7 +42,9 @@
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
           <a href="./index.html" class="text-nowrap logo-img">
-            <img src="{{asset('template/assets/images/logos/logo-swara.png')}}" width="70" alt="" />
+            <br>
+            <img src="{{asset('images/logo.svg')}}" width="39" alt="" />
+            
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-8"></i>
