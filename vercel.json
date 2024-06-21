@@ -1,12 +1,17 @@
 {
-    "builds": [
-      {
-        "src": "public/build/*",
-        "use": "@vercel/static-build"
-      }
-    ],
-    "routes": [
-      { "src": "/(.*)", "dest": "public/build/index.html" }
-    ]
-  }
-  
+  "version": 2,
+  "name": "your-laravel-app",
+  "builds": [
+    {
+      "src": "public/index.php",
+      "use": "@vercel/php"
+    },
+    {
+      "src": "public/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/public/index.php" }
+  ]
+}
